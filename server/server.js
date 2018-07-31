@@ -1,46 +1,28 @@
 require('./config/config')
 
 const express = require('express');
-const app = express();
+// Using Node.js `require()`
+const mongoose = require('mongoose');
+
+
 const bodyParser = require('body-parser');
+const app = express();
 
 // parse application/x-www-form-urlencoded son middlewheres, cada peticion siempre pasa por estas lineas
 app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+    //Para incluir otro archivo y usar las rutas de usuario
+app.use(require('./routes/usuario'));
 
-app.get('/usuario', function(req, res) {
-    res.json('Get Usuario');
-})
-
-app.post('/usuario', function(req, res) {
-    let body = req.body;
-    if (body.nombre === undefined) {
-        res.status(400).json({
-
-            ok: false,
-            mensaje: 'El nombre es necesario',
-            err: ''
-        });
-    } else {
-        res.json({
-            persona: body
-        });
+//conectar a la base de datos mongodb
+mongoose.connect(process.env.URLDB, (error, resp) => {
+    if (error) {
+        throw new error;
     }
-})
-
-app.put('/usuario/:id', function(req, res) {
-    let id = req.params.id;
-    res.json({
-        id
-    });
-})
-
-app.delete('/usuario', function(req, res) {
-    res.json('Delete Usuario');
-})
-
+    console.log('Base de datos ONLINE');
+});
 
 app.listen(process.env.PORT, () => {
     console.log('Escuchando puerto', process.env.PORT)
