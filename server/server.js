@@ -14,8 +14,8 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
     //Para incluir otro archivo y usar las rutas de usuario
-app.use(require('./routes/usuario'));
-
+    //Configuracion Global de rutas
+app.use(require('./routes/index'));
 //conectar a la base de datos mongodb
 mongoose.connect(process.env.URLDB, (error, resp) => {
     if (error) {

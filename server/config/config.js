@@ -8,6 +8,19 @@ process.env.PORT = process.env.PORT || 3000;
 //================================
 process.env.NODE_ENV = process.env.NODE_ENV || 'dev';
 
+
+//================================
+//Vendimiento del Token
+//================================
+//60seg*60min*24h*30d
+process.env.CADUCIDAD_TOKEN = 60 * 60 * 24 * 30;
+
+//================================
+//Seed
+//================================
+// se pone process.env.SEED || para ocultarlo al subirlo a git o heroku, para que no lo vean los demas
+process.env.SEED = process.env.SEED || 'este-es-el-seed-desarrollo';
+
 //================================
 //Base de datos
 //================================
