@@ -3,9 +3,8 @@ require('./config/config')
 const express = require('express');
 // Using Node.js `require()`
 const mongoose = require('mongoose');
-
-
 const bodyParser = require('body-parser');
+const path = require('path');
 const app = express();
 
 // parse application/x-www-form-urlencoded son middlewheres, cada peticion siempre pasa por estas lineas
@@ -13,6 +12,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 
 // parse application/json
 app.use(bodyParser.json())
+
+
+//HABILITAR LA CARPETA PUBLIC 
+app.use(express.static(path.resolve(__dirname,'../public')));
     //Para incluir otro archivo y usar las rutas de usuario
     //Configuracion Global de rutas
 app.use(require('./routes/index'));
